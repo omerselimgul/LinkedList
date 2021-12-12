@@ -28,7 +28,6 @@ void insertdatabegining(int input)
         start = p;
     }
     printf("Data inserted \n");
-
 }
 void insertatend(int input)
 {
@@ -67,29 +66,81 @@ void display()
     }
     printf("\n");
 }
-void searchdata(int input){
-    int a=1;
-    if(start == NULL){
+void searchdata(int input)
+{
+    int a = 1;
+    int x = 0;
+    if (start == NULL)
+    {
         printf("list is empty \n");
-    }else{
+    }
+    else
+    {
         mystruct *temp_ = start;
-        int x=0;
         while (temp_ != NULL)
         {
             x++;
             printf("%d -->", temp_->data);
-            if(temp_->data==input){
-                printf(" data  %d . sirada \n",x);
-                a=2;
-                break;              
+            if (temp_->data == input)
+            {
+                printf(" data  %d . sirada \n", x);
+                a = 2;
+                break;
             }
             temp_ = temp_->next;
         }
-        if(a==1){
+        if (a == 1)
+        {
             printf("Data is not exist \n ");
         }
     }
+}
+void deletedataatstart()
+{
+    mystruct *p = malloc(sizeof(mystruct));
+    p = start;
 
+    if (p == NULL)
+    {
+        printf("List is Empty \n");
+    }
+    else
+    {
+        if (p->next == NULL)
+        {
+            start = NULL;
+        }
+        else
+        {
+            start = p->next;
+        }
+    }
+}
+void deletedataatend()
+{
+    mystruct *p = malloc(sizeof(mystruct));
+    p = start;
+    if (p != NULL)
+    {
+        if (p==last)
+        {
+            p=NULL;
+            start=p;
+            last=p;
+        }
+        else
+        {
+            while (p->next != last)
+            {
+                p = p->next;
+            }
+            p->next = NULL;
+            last = p;
+        }
+    }
+    else{
+        printf("List is empty \n");
+    }
 }
 int main()
 {
@@ -99,7 +150,7 @@ int main()
 
         int input;
         printf("---------------------------MENU-----------------------\n");
-        printf("Insert the data : 1  \nDisplay : 2  \nSearch the data : 3  ");
+        printf("Insert the data : 1  \nDisplay : 2  \nSearch the data : 3 \nDelete the Data : 4  \nFor Exit : 5  ===>  ");
         scanf("%d", &answer);
         switch (answer)
         {
@@ -119,15 +170,30 @@ int main()
             }
 
             break;
-        case 2 :
+        case 2:
             display();
             break;
-        
-        case 3 :
-            printf("Enter a Data ");
-            scanf("%d",&input);
-            searchdata(input);
 
+        case 3:
+            printf("Enter a Data ");
+            scanf("%d", &input);
+            searchdata(input);
+            break;
+        case 4:
+            printf("Dou you want where delete to data - begin : 1 End : 2 \n ");
+            scanf("%d", &where);
+            if (where == 1)
+            {
+                deletedataatstart();
+            }
+            else
+            {
+                deletedataatend();
+            }
+            break;
+        default:
+            exit(0);
+            break;
         }
     }
 
